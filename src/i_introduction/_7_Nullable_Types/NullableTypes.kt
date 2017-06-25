@@ -7,7 +7,7 @@ fun test() {
     val s: String = "this variable cannot store null references"
     val q: String? = null
 
-    if (q != null) q.length      // you have to check to dereference
+    q?.length      // you have to check to dereference
     val i: Int? = q?.length      // null
     val j: Int = q?.length ?: 0  // 0
 }
@@ -25,7 +25,10 @@ fun todoTask7(client: Client?, message: String?, mailer: Mailer): Nothing = TODO
 fun sendMessageToClient(
         client: Client?, message: String?, mailer: Mailer
 ) {
-    todoTask7(client, message, mailer)
+    val email: String? = client?.personalInfo?.email
+    if (email != null && message != null) {
+        mailer.sendMessage(email, message)
+    }
 }
 
 class Client (val personalInfo: PersonalInfo?)
